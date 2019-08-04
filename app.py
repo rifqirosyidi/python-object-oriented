@@ -19,6 +19,18 @@ class Employee:
     def apply_raise(self):
         self.pay = int(self.pay * self.raise_amount)
 
+    def __repr__(self):
+        return "Employee('{}', '{}', '{}')".format(self.first, self.last, self.email)
+
+    def __str__(self):
+        return "{} - {}".format(self.full_name(), self.email)
+
+    def __add__(self, other):
+        return self.pay + other.pay
+
+    def __len__(self):
+        return len(self.full_name())
+
     @classmethod
     def set_amount(cls, amount):
         cls.raise_amount = amount
@@ -120,4 +132,15 @@ mg1.print_emps()  # List Employees
 # print(issubclass(Developer, Employee))  # true
 # print(issubclass(Developer, Manager))  # false
 
+# print(repr(mg1))
+# print(str(mg1))
+
+# print(mg1.__repr__())
+# print(mg1.__str__())
+
+# Dunder Add
+# print((dev1 + dev2))
+
+# Dunder Len
+# print(len(mg1))
 
