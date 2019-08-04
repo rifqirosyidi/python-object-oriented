@@ -35,8 +35,43 @@ class Employee:
         return True
 
 
-emp1 = Employee("Test", "User", 50000)
-emp2 = Employee("Another", "Instance", 60000)
+# =============================================
+# ============== INHERITANCE ==================
+# =============================================
+
+
+class Developer(Employee):
+    raise_amount = 1.10
+
+    def __init__(self, first, last, pay, prog_lang):
+        super().__init__(first, last, pay)
+        self.prog_lang = prog_lang
+
+
+class Manager(Employee):
+
+    def __init__(self, first, last, pay, employees=None):
+        super().__init__(first, last, pay)
+        if employees is None:
+            self.employees = []
+        else:
+            self.employees = employees
+
+    def add_emp(self, emp):
+        if emp not in self.employees:
+            self.employees.append(emp)
+
+    def remove_emp(self, emp):
+        if emp in self.employees:
+            self.employees.remove(emp)
+
+    def print_emps(self):
+        for emp in self.employees:
+            print("-> ", emp.full_name())
+
+
+# emp1 = Employee("Test", "User", 50000)
+# emp2 = Employee("Another", "Instance", 60000)
 
 # THIS IS CALLED INSTANCE VARIABLE
 # print(emp1.full_name())
@@ -52,13 +87,37 @@ emp2 = Employee("Another", "Instance", 60000)
 # print(emp2.raise_amount)
 #
 # print(Employee.num_of_employee)
+#
+# emp_str_4 = "John-Doe-60000"
+# emp_str_5 = "Another-User-50000"
+# emp_str_6 = "User-Three-30000"
+#
+# emp4 = Employee.from_string(emp_str_4)
+# print(emp4.first)
+#
+# my_date = datetime.date(2019, 8, 2)
+# print(Employee.is_workday(my_date))
 
-emp_str_4 = "John-Doe-60000"
-emp_str_5 = "Another-User-50000"
-emp_str_6 = "User-Three-30000"
 
-emp4 = Employee.from_string(emp_str_4)
-print(emp4.first)
+dev1 = Developer("Rifqi", "Ros", 90000, "Java")
+dev2 = Developer("Neuron", "Sie", 90000, "Python")
+# print(dev1.email, dev1.prog_lang)
+# print(dev2.email, dev2.prog_lang)
 
-my_date = datetime.date(2019, 8, 2)
-print(Employee.is_workday(my_date))
+mg1 = Manager("Test", "Manager", 10000, [dev1])
+print(mg1.email)
+mg1.add_emp(dev2)  # Add Employees
+mg1.remove_emp(dev1)  # Remove Employees
+mg1.print_emps()  # List Employees
+
+# CHECK AN INSTANCE
+# print(isinstance(mg1, Manager))  # true
+# print(isinstance(mg1, Employee))  # true
+# print(isinstance(mg1, Developer))  # false
+
+# CHECK A SUB CLASS
+# print(issubclass(Manager, Employee))  # true
+# print(issubclass(Developer, Employee))  # true
+# print(issubclass(Developer, Manager))  # false
+
+
